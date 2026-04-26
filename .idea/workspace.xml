@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bfe43c99-aaf7-480c-a767-726cbab319f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/org/example/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,12 +22,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;danilloclopes&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "state": "OPEN"
+    }
+  ],
+  "lastFilter": {
+    "state": "OPEN"
   }
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/danilloclopes/trabalho-dev-web.git&quot;,
@@ -55,6 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Application.Main.executor": "Run",
     "Application.teste.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -82,9 +86,6 @@
       <option name="catalinaBase" value="C:\Users\danil\.SmartTomcat\trabalho-dev-web\trabalho-dev-web" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="C:\Users\danil\OneDrive\Documentos\Projetos\curso\trabalho-dev-web\WebContent" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="tomcatInfo">
         <TomcatInfo>
