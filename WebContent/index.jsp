@@ -43,8 +43,8 @@
 
       <!-- Desktop actions -->
       <div class="nav-actions">
-        <a href="cliente/login.jsp" class="nav-btn-outline">Entrar</a>
-        <a href="cliente/cadastro.jsp" class="nav-btn-filled">Criar conta</a>
+        <a href="login.jsp" class="nav-btn-outline">Entrar</a>
+        <a href="cadastro.jsp" class="nav-btn-filled">Criar conta</a>
       </div>
 
       <!-- Mobile toggle -->
@@ -64,8 +64,8 @@
     <a href="#diferenciais">Diferenciais</a>
     <a href="#depoimentos">Depoimentos</a>
     <div class="mobile-nav-actions">
-      <a href="cliente/login.jsp" class="btn btn-outline">Entrar</a>
-      <a href="cliente/cadastro.jsp" class="btn btn-primary">Criar conta</a>
+      <a href="login.jsp" class="btn btn-outline">Entrar</a>
+      <a href="cadastro.jsp" class="btn btn-primary">Criar conta</a>
     </div>
   </nav>
   <div class="overlay" id="overlay"></div>
@@ -541,8 +541,8 @@
         <div>
           <div class="footer-col-title">Conta</div>
           <ul class="footer-links">
-            <li><a href="cliente/cadastro.jsp">Criar conta</a></li>
-            <li><a href="cliente/login.jsp">Entrar</a></li>
+            <li><a href="cadastro.jsp">Criar conta</a></li>
+            <li><a href="login.jsp">Entrar</a></li>
             <li><a href="aluguel/novo.jsp">Fazer reserva</a></li>
             <li><a href="cliente/perfil.jsp">Meu perfil</a></li>
           </ul>
@@ -576,9 +576,8 @@
           &copy; <%= new java.util.Date().getYear() + 1900 %> MagicFest. Todos os direitos reservados.
         </p>
         <div class="footer-bottom-links">
-          <a href="#">Política de Privacidade</a>
-          <a href="#">Termos de Uso</a>
-          <a href="#">Cookies</a>
+          <a href="politica-de-privacidade.jsp">Política de Privacidade</a>
+          <a href="termos-de-uso.jsp">Termos de Uso</a>
         </div>
       </div>
     </div>
