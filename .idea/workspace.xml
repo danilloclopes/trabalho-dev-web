@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bfe43c99-aaf7-480c-a767-726cbab319f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/WebContent/cadastro.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebContent/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/cliente/cadastro.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/cliente/login.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebContent/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebContent/index.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="bfe43c99-aaf7-480c-a767-726cbab319f3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

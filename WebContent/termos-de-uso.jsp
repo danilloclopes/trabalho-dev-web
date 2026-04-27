@@ -11,166 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <style>
-    .legal-page {
-      padding: 120px 0 80px;
-      min-height: 100vh;
-      background: var(--bg-section);
-    }
-    .legal-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 4px 32px var(--shadow);
-      padding: 56px 64px;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .legal-header {
-      margin-bottom: 40px;
-      padding-bottom: 32px;
-      border-bottom: 2px solid var(--border);
-    }
-    .legal-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
-      color: var(--primary-dark);
-      font-family: var(--font-heading);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      padding: 6px 16px;
-      border-radius: var(--radius-full);
-      margin-bottom: 20px;
-    }
-    .legal-title {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: var(--text-dark);
-      margin-bottom: 12px;
-    }
-    .legal-meta {
-      font-size: 14px;
-      color: var(--text-light);
-    }
-    .legal-toc {
-      background: var(--bg-section);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 24px 32px;
-      margin-bottom: 40px;
-    }
-    .legal-toc h3 {
-      font-family: var(--font-heading);
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-bottom: 14px;
-    }
-    .legal-toc ol {
-      list-style: decimal;
-      padding-left: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 24px;
-    }
-    .legal-toc a {
-      color: var(--primary);
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-    .legal-toc a:hover { color: var(--primary-dark); }
-    .legal-section {
-      margin-bottom: 40px;
-    }
-    .legal-section h2 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .legal-section h2 .section-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      border-radius: 50%;
-      font-size: 14px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-    .legal-section p {
-      color: var(--text-medium);
-      font-size: 15px;
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-    .legal-section ul,
-    .legal-section ol {
-      color: var(--text-medium);
-      font-size: 15px;
-      line-height: 1.8;
-      padding-left: 24px;
-      margin-bottom: 12px;
-    }
-    .legal-section ul { list-style: disc; }
-    .legal-section ol { list-style: decimal; }
-    .legal-section li { margin-bottom: 6px; }
-    .legal-highlight {
-      background: #FFF7ED;
-      border-left: 4px solid var(--secondary);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 16px 20px;
-      margin: 16px 0;
-      font-size: 14px;
-      color: #92400E;
-      font-weight: 600;
-    }
-    .legal-contact-box {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      border-radius: var(--radius-md);
-      padding: 32px 40px;
-      margin-top: 48px;
-      text-align: center;
-    }
-    .legal-contact-box h3 {
-      font-family: var(--font-heading);
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .legal-contact-box p { opacity: .9; font-size: 15px; margin-bottom: 4px; }
-    .legal-contact-box a { color: var(--secondary-light); font-weight: 700; }
-    .legal-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 15px;
-      text-decoration: none;
-      margin-bottom: 32px;
-      transition: gap var(--transition);
-    }
-    .legal-back:hover { gap: 12px; }
-    @media (max-width: 768px) {
-      .legal-card { padding: 32px 24px; }
-      .legal-title { font-size: 1.7rem; }
-      .legal-toc ol { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/legal.css" />
 </head>
 <body>
 
@@ -222,7 +63,6 @@
           <p class="legal-meta">Última atualização: 27 de abril de 2026 &nbsp;·&nbsp; Versão 1.0</p>
         </div>
 
-        <!-- Índice -->
         <nav class="legal-toc">
           <h3>Sumário</h3>
           <ol>
@@ -241,11 +81,10 @@
           </ol>
         </nav>
 
-        <div class="legal-highlight">
+        <div class="legal-highlight legal-highlight--warning">
           Leia este documento com atenção antes de utilizar a plataforma MagicFest. Ao criar uma conta ou realizar uma reserva, você concorda com todos os termos aqui descritos.
         </div>
 
-        <!-- Seções -->
         <div class="legal-section" id="s1">
           <h2><span class="section-num">1</span> Aceitação dos Termos</h2>
           <p>Estes Termos de Uso ("Termos") regulam o acesso e o uso da plataforma MagicFest ("Plataforma"), operada por MagicFest Entretenimento Ltda., com sede em [Cidade, Estado], CNPJ nº [00.000.000/0001-00].</p>
@@ -311,7 +150,7 @@
         <div class="legal-section" id="s7">
           <h2><span class="section-num">7</span> Responsabilidades</h2>
           <p><strong>7.1 Limitação da MagicFest.</strong> A MagicFest não se responsabiliza por danos causados durante a execução dos serviços, conflitos entre cliente e personagem, atrasos decorrentes de força maior, nem por conteúdo publicado por usuários na Plataforma.</p>
-          <p><strong>7.2 Responsabilidade do Personagem.</strong> O personagem é inteiramente responsável pela qualidade, pontualidade e segurança do serviço prestado, bem como por manter-se apto fisica e legalmente para exercer a atividade.</p>
+          <p><strong>7.2 Responsabilidade do Personagem.</strong> O personagem é inteiramente responsável pela qualidade, pontualidade e segurança do serviço prestado, bem como por manter-se apto física e legalmente para exercer a atividade.</p>
           <p><strong>7.3 Responsabilidade do Cliente.</strong> O cliente é responsável por garantir um ambiente seguro para a realização do evento e por informar eventuais restrições ou necessidades especiais com antecedência.</p>
           <p><strong>7.4 Disponibilidade.</strong> A MagicFest envida seus melhores esforços para manter a Plataforma disponível 24 horas por dia, 7 dias por semana, mas não garante disponibilidade ininterrupta e se reserva o direito de realizar manutenções programadas.</p>
         </div>

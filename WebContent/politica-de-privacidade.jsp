@@ -11,203 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <style>
-    .legal-page {
-      padding: 120px 0 80px;
-      min-height: 100vh;
-      background: var(--bg-section);
-    }
-    .legal-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 4px 32px var(--shadow);
-      padding: 56px 64px;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .legal-header {
-      margin-bottom: 40px;
-      padding-bottom: 32px;
-      border-bottom: 2px solid var(--border);
-    }
-    .legal-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
-      color: var(--primary-dark);
-      font-family: var(--font-heading);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      padding: 6px 16px;
-      border-radius: var(--radius-full);
-      margin-bottom: 20px;
-    }
-    .legal-title {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: var(--text-dark);
-      margin-bottom: 12px;
-    }
-    .legal-meta {
-      font-size: 14px;
-      color: var(--text-light);
-    }
-    .legal-toc {
-      background: var(--bg-section);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 24px 32px;
-      margin-bottom: 40px;
-    }
-    .legal-toc h3 {
-      font-family: var(--font-heading);
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-bottom: 14px;
-    }
-    .legal-toc ol {
-      list-style: decimal;
-      padding-left: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 24px;
-    }
-    .legal-toc a {
-      color: var(--primary);
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-    .legal-toc a:hover { color: var(--primary-dark); }
-    .legal-section {
-      margin-bottom: 40px;
-    }
-    .legal-section h2 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .legal-section h2 .section-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      border-radius: 50%;
-      font-size: 14px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-    .legal-section p {
-      color: var(--text-medium);
-      font-size: 15px;
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-    .legal-section ul,
-    .legal-section ol {
-      color: var(--text-medium);
-      font-size: 15px;
-      line-height: 1.8;
-      padding-left: 24px;
-      margin-bottom: 12px;
-    }
-    .legal-section ul { list-style: disc; }
-    .legal-section ol { list-style: decimal; }
-    .legal-section li { margin-bottom: 6px; }
-    .legal-highlight {
-      background: #EFF6FF;
-      border-left: 4px solid var(--primary);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 16px 20px;
-      margin: 16px 0;
-      font-size: 14px;
-      color: #1E40AF;
-      font-weight: 600;
-    }
-    .rights-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 16px 0;
-    }
-    .rights-item {
-      background: var(--bg-section);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px 20px;
-    }
-    .rights-item strong {
-      display: block;
-      color: var(--primary-dark);
-      font-family: var(--font-heading);
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    .rights-item span {
-      color: var(--text-medium);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .legal-contact-box {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      border-radius: var(--radius-md);
-      padding: 32px 40px;
-      margin-top: 48px;
-      text-align: center;
-    }
-    .legal-contact-box h3 {
-      font-family: var(--font-heading);
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .legal-contact-box p { opacity: .9; font-size: 15px; margin-bottom: 4px; }
-    .legal-contact-box a { color: var(--secondary-light); font-weight: 700; }
-    .legal-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 15px;
-      text-decoration: none;
-      margin-bottom: 32px;
-      transition: gap var(--transition);
-    }
-    .legal-back:hover { gap: 12px; }
-    .lgpd-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #D1FAE5;
-      color: #065F46;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      margin-top: 12px;
-    }
-    @media (max-width: 768px) {
-      .legal-card { padding: 32px 24px; }
-      .legal-title { font-size: 1.7rem; }
-      .legal-toc ol { grid-template-columns: 1fr; }
-      .rights-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/legal.css" />
 </head>
 <body>
 
@@ -260,7 +64,6 @@
           <div class="lgpd-badge">✔ Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)</div>
         </div>
 
-        <!-- Índice -->
         <nav class="legal-toc">
           <h3>Sumário</h3>
           <ol>
@@ -279,11 +82,10 @@
           </ol>
         </nav>
 
-        <div class="legal-highlight">
+        <div class="legal-highlight legal-highlight--info">
           A MagicFest respeita sua privacidade. Esta Política explica, de forma transparente, quais dados pessoais coletamos, por que os utilizamos e quais são seus direitos como titular dos dados, em conformidade com a LGPD.
         </div>
 
-        <!-- Seções -->
         <div class="legal-section" id="p1">
           <h2><span class="section-num">1</span> Quem somos (Controlador)</h2>
           <p>O controlador responsável pelo tratamento dos seus dados pessoais é:</p>
