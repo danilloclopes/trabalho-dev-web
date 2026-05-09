@@ -2,6 +2,7 @@ package br.com.agendamento.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,9 +27,34 @@ public class AgendamentoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request
-            .getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-            .forward(request, response);
+        HttpSession session = request.getSession(false);
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
+        String acao = request.getParameter("acao");
+
+        if (usuarioLogado == null) {
+            response.sendRedirect(request.getContextPath() + "/auth?acao=login");
+            return;
+        }
+
+        if("agendar".equals(acao)) {
+
+            request
+                .getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
+                .forward(request, response);
+
+        } else if ("dashboard-cliente".equals(acao)) {
+
+            List<Agendamento> agendamentos = agendamentoService.listarAgendamentosCliente(usuarioLogado.getId());
+
+            request.setAttribute("agendamentos",agendamentos);
+            request
+                .getRequestDispatcher("/WEB-INF/views/cliente/dashboard.jsp")
+                .forward(request, response);
+
+        } else if ("dashboard-animador".equals(acao)) {
+
+        }
     }
 
     @Override

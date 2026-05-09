@@ -2,6 +2,7 @@ package br.com.agendamento.model.service;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import br.com.agendamento.model.dao.AgendamentoDAO;
 import br.com.agendamento.model.entity.Agendamento;
@@ -24,5 +25,15 @@ public class AgendamentoService {
 
         agendamento.setStatus(StatusAgendamento.PENDENTE);
         agendamentoDAO.salvar(agendamento);
+    }
+
+    public List<Agendamento> listarAgendamentosCliente(int clienteId)
+        throws Exception {
+
+        if (clienteId <= 0) {
+            throw new IllegalArgumentException("ID do cliente inválido.");
+        }
+
+        return agendamentoDAO.listarPorCliente(clienteId);
     }
 }

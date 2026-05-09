@@ -104,8 +104,18 @@
 
                 <a
                     class="btn"
-                    href="${pageContext.request.contextPath}/agendamento">
+                    href="${pageContext.request.contextPath}/agendamento?acao=agendar">
                     Fazer Agendamento </a>
+
+                <a
+                    class="btn"
+                    href="${pageContext.request.contextPath}/agendamento?acao=dashboard-cliente">
+                    Ver meus agendamentos </a>
+
+                <a
+                    class="btn"
+                    href="${pageContext.request.contextPath}/agendamento?acao=dashboard-animador">
+                    Ver meus contratos </a>
 
                 <a
                     class="btn"
