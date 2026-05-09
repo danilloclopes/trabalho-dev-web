@@ -25,7 +25,7 @@ del /F /Q "D:\Tomcat\apache-tomcat-9.0.117\webapps\agendamento-personagens.war" 
 rmdir /S /Q "D:\Tomcat\apache-tomcat-9.0.117\webapps\agendamento-personagens" >nul 2>&1
 
 @REM copia o novo .war para a /webapps do tomcat
-copy /Y "C:\Users\Emanuel\OneDrive\Desktop\agendamento-personagens\projeto\target\agendamento-personagens.war" "D:\Tomcat\apache-tomcat-9.0.117\webapps"
+copy /Y "C:\Users\Emanuel\OneDrive\Desktop\agendamento-personagens\target\agendamento-personagens.war" "D:\Tomcat\apache-tomcat-9.0.117\webapps"
 
 @REM inicia o tomcat de novo
 call "D:\Tomcat\apache-tomcat-9.0.117\bin\startup.bat"
