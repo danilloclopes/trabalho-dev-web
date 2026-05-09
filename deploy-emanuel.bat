@@ -15,10 +15,6 @@ if %errorlevel% neq 0 (
 
 @REM desliga o tomcat caso esteja rodando
 call "D:\Tomcat\apache-tomcat-9.0.117\bin\shutdown.bat" >nul 2>&1
-timeout /t 5 >nul
-
-@REM @REM timeout pra garantir que o tomcat desligou
-@REM timeout /t 1 >nul
 
 @REM apaga o .war anterior para evitar conflitos
 del /F /Q "D:\Tomcat\apache-tomcat-9.0.117\webapps\agendamento-personagens.war" >nul 2>&1
@@ -29,9 +25,6 @@ copy /Y "C:\Users\Emanuel\OneDrive\Desktop\agendamento-personagens\target\agenda
 
 @REM inicia o tomcat de novo
 call "D:\Tomcat\apache-tomcat-9.0.117\bin\startup.bat"
-
-@REM espera o tomcat subir completamente antes de abrir o browser
-timeout /t 8 >nul
 
 @REM abre o chrome com a url do projeto
 start chrome http://localhost:8080/agendamento-personagens/

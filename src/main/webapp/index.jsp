@@ -1,9 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="br.com.agendamento.model.entity.Usuario" %>
 
-<%
-Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -12,73 +9,81 @@ Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
     <meta charset="UTF-8">
     <title>Agendamento de Personagens</title>
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f6f8;
-        text-align: center;
-        margin: 0;
-    }
+    <style>
 
-    header {
-        background-color: #2c3e50;
-        color: white;
-        padding: 20px;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            text-align: center;
+            margin: 0;
+        }
 
-    main {
-        margin-top: 50px;
-    }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
 
-    .container {
-        width: 60%;
-        margin: auto;
-    }
+        main {
+            margin-top: 50px;
+        }
 
-    .btn {
-        display: inline-block;
-        margin: 15px;
-        padding: 12px 25px;
-        font-size: 16px;
-        text-decoration: none;
-        color: white;
-        background-color: #3498db;
-        border-radius: 5px;
-    }
+        .container {
+            width: 60%;
+            margin: auto;
+        }
 
-    .btn:hover {
-        background-color: #2980b9;
-    }
+        .btn {
+            display: inline-block;
+            margin: 15px;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            background-color: #3498db;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
 
-    .btn-secondary {
-        background-color: #2ecc71;
-    }
+        .btn:hover {
+            background-color: #2980b9;
+        }
 
-    .btn-secondary:hover {
-        background-color: #27ae60;
-    }
+        .btn-secondary {
+            background-color: #2ecc71;
+        }
 
-    .btn-danger {
-        background-color: #e74c3c;
-    }
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
 
-    .btn-danger:hover {
-        background-color: #c0392b;
-    }
+        .btn-danger {
+            background-color: #e74c3c;
+        }
 
-    .msg {
-        margin-top: 20px;
-        font-weight: bold;
-    }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
 
-    .success {
-        color: green;
-    }
+        .msg {
+            margin-top: 20px;
+            font-weight: bold;
+        }
 
-    .error {
-        color: red;
-    }
-</style>
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .logout-form {
+            display: inline;
+        }
+
+    </style>
 
 </head>
 
@@ -89,63 +94,75 @@ Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
     </header>
 
     <main>
+
         <div class="container">
 
-            <% if (usuario != null) { %>
+            <!-- Usuário logado -->
+            <c:if test="${not empty sessionScope.usuarioLogado}">
 
-                <h2>Bem-vindo, <%= usuario.getNome() %>!</h2>
+                <h2>Bem-vindo, ${sessionScope.usuarioLogado.nome}!</h2>
                 <p>Agora você pode contratar um animador.</p>
 
+                <!-- Navegação -->
                 <a
                     class="btn"
-                    href="<%= request.getContextPath() %>/views/agendamento/agendar.jsp">
-                    Fazer Agendamento
-                </a>
+                    href="${pageContext.request.contextPath}/agendamento">
+                    Fazer Agendamento </a>
 
                 <a
                     class="btn"
-                    href="<%= request.getContextPath() %>/usuario">
-                    Ver Perfil
-                </a>
+                    href="${pageContext.request.contextPath}/usuario">
+                    Ver Perfil </a>
 
-                <form action="<%= request.getContextPath() %>/auth" method="post">
-                    <input type="hidden" name="acao" value="logout">
-                    <button type="submit" class="btn btn-danger">Logout</button>
+                <!-- Logout deve usar POST -->
+                <form class="logout-form" action="${pageContext.request.contextPath}/auth" method="post">
+                    <input
+                        type="hidden"
+                        name="acao"
+                        value="logout">
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger">
+                        Logout
+                    </button>
                 </form>
 
-            <% } else { %>
+            </c:if>
+
+            <!-- Usuário não logado -->
+            <c:if test="${empty sessionScope.usuarioLogado}">
 
                 <h2>Bem-vindo!</h2>
 
-                <p>Aqui você pode contratar personagens para festas ou oferecer seus serviços como personagem.</p>
-                <p>Crie uma conta ou faça login para começar a usar o sistema.</p>
+                <p> Aqui você pode contratar personagens para festas ou oferecer seus serviços como personagem.</p>
+                <p> Crie uma conta ou faça login para começar a usar o sistema.</p>
 
                 <a
                     class="btn"
-                    href="<%= request.getContextPath() %>/views/auth/login.jsp">
+                    href="${pageContext.request.contextPath}/auth?acao=login">
                     Fazer Login
                 </a>
 
                 <a
                     class="btn btn-secondary"
-                    href="<%= request.getContextPath() %>/views/auth/cadastro.jsp">
+                    href="${pageContext.request.contextPath}/auth?acao=cadastro">
                     Criar Conta
                 </a>
 
-            <% } %>
+            </c:if>
 
-            <!-- Mensagem de sucesso do agendamento -->
-            <% if (request.getParameter("sucesso") != null) { %>
+            <!-- Mensagem de sucesso -->
+            <c:if test="${not empty param.sucesso}">
                 <p class="msg success">Seu agendamento foi realizado com sucesso!</p>
-            <% } %>
+            </c:if>
 
             <!-- Mensagem de erro -->
-            <% if (request.getAttribute("erro") != null) { %>
-                <p class="msg error"><%= request.getAttribute("erro") %></p>
-            <% } %>
+            <c:if test="${not empty requestScope.erro}">
+                <p class="msg error">${requestScope.erro}</p>
+            </c:if>
 
         </div>
     </main>
-
 </body>
 </html>
