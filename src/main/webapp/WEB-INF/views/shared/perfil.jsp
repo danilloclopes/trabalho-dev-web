@@ -1,77 +1,190 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="br.com.agendamento.model.entity.Usuario" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Meu Perfil</title>
 
+    <meta charset="UTF-8">
+    <title>Meu Perfil</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
             text-align: center;
-            margin-top: 50px;
+            padding: 20px;
+        }
+
+        main {
+            margin-top: 40px;
         }
 
         .container {
-            background: white;
-            padding: 30px;
-            margin: auto;
             width: 40%;
-            border-radius: 8px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        p {
-            font-size: 16px;
-            margin: 10px 0;
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        button, a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            text-decoration: none;
+        .info {
+            margin-bottom: 20px;
         }
+
+        .info strong {
+            display: inline-block;
+            width: 80px;
+        }
+
+        .mensagem-erro {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #2ecc71;
+        }
+
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
     </style>
+
 </head>
 
-<body>
+    <body>
 
-    <%
-        Usuario usuario = (Usuario) request.getAttribute("usuario");
+        <header>
+            <h1>Sistema de Agendamento</h1>
+        </header>
 
-        if (usuario == null) {
-    %>
-        <p>Erro ao carregar usuário.</p>
-    <%
-            return;
-        }
-    %>
+        <main>
+            <div class="container">
 
-    <div class="container">
+                <h2>Meu Perfil</h2>
 
-        <h2>Meu Perfil</h2>
+                <c:if test="${not empty requestScope.erro}">
+                    <p class="mensagem-erro">
+                        ${requestScope.erro}
+                    </p>
+                </c:if>
 
-        <p><strong>Nome:</strong> <%= usuario.getNome() %></p>
-        <p><strong>Email:</strong> <%= usuario.getEmail() %></p>
-        <p><strong>CPF:</strong> <%= usuario.getCpf() %></p>
+                <c:if test="${not empty requestScope.usuario}">
 
-        <a href="<%= request.getContextPath() %>/views/shared/mudarPerfil.jsp">
-            Editar Perfil
-        </a>
+                    <div class="info">
+                        <p>
+                            <strong>Nome:</strong>
+                            ${requestScope.usuario.nome}
+                        </p>
 
-        <form action="<%= request.getContextPath() %>/auth" method="post">
-            <input type="hidden" name="acao" value="logout">
-            <button type="submit">Logout</button>
-        </form>
+                        <p>
+                            <strong>Email:</strong>
+                            ${requestScope.usuario.email}
+                        </p>
 
-        <br>
+                        <p>
+                            <strong>CPF:</strong>
+                            ${requestScope.usuario.cpf}
+                        </p>
+                    </div>
 
-        <a href="<%= request.getContextPath() %>/index.jsp">Voltar à Homepage</a>
+                    <div class="actions">
 
-    </div>
+                        <a
+                            class="btn btn-primary"
+                            href="${pageContext.request.contextPath}/usuario?acao=editar-perfil">
+                            Editar Perfil
+                        </a>
 
-</body>
+                        <a
+                            class="btn btn-secondary"
+                            href="${pageContext.request.contextPath}/meus-agendamentos">
+                            Meus Agendamentos
+                        </a>
+
+                        <form action="${pageContext.request.contextPath}/auth" method="post">
+                            <input
+                                type="hidden"
+                                name="acao"
+                                value="logout">
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger">
+                                Logout
+                            </button>
+                        </form>
+
+                    </div>
+                </c:if>
+
+                <div class="actions">
+                    <a
+                        class="btn btn-secondary"
+                        href="${pageContext.request.contextPath}/">
+                        Voltar à Página Inicial
+                    </a>
+                </div>
+
+            </div>
+        </main>
+    </body>
 </html>

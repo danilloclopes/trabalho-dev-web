@@ -5,7 +5,11 @@ import br.com.agendamento.model.service.AuthService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -28,10 +32,6 @@ public class AuthServlet extends HttpServlet {
         } else if ("cadastro".equals(acao)) {
             request
                 .getRequestDispatcher("/WEB-INF/views/auth/cadastro.jsp")
-                .forward(request, response);
-        } else {
-            request
-                .getRequestDispatcher("/WEB-INF/views/auth/logout.jsp")
                 .forward(request, response);
         }
     }

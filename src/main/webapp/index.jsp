@@ -8,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Agendamento de Personagens</title>
-
     <style>
 
         body {
@@ -103,7 +102,6 @@
                 <h2>Bem-vindo, ${sessionScope.usuarioLogado.nome}!</h2>
                 <p>Agora você pode contratar um animador.</p>
 
-                <!-- Navegação -->
                 <a
                     class="btn"
                     href="${pageContext.request.contextPath}/agendamento">
@@ -111,10 +109,9 @@
 
                 <a
                     class="btn"
-                    href="${pageContext.request.contextPath}/usuario">
+                    href="${pageContext.request.contextPath}/usuario?acao=perfil">
                     Ver Perfil </a>
 
-                <!-- Logout deve usar POST -->
                 <form class="logout-form" action="${pageContext.request.contextPath}/auth" method="post">
                     <input
                         type="hidden"
