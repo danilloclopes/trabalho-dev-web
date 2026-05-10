@@ -26,6 +26,16 @@
         return checked && checked.value === 'personagem';
     }
 
+    /* ── Máscara de CPF ── */
+    var cpfEl = document.getElementById('cpf');
+    cpfEl.addEventListener('input', function () {
+        var v = this.value.replace(/\D/g, '').substring(0, 11);
+        v = v.replace(/^(\d{3})(\d)/, '$1.$2');
+        v = v.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+        v = v.replace(/\.(\d{3})(\d)/, '.$1-$2');
+        this.value = v;
+    });
+
     /* ── Máscara de telefone ── */
     var telefoneEl = document.getElementById('telefone');
     telefoneEl.addEventListener('input', function () {
@@ -144,10 +154,20 @@
         }
     });
 
+    /* ── Validação de CPF ── */
+    cpfEl.addEventListener('input', function () {
+        setInvalid(cpfEl, 'cpfError', this.value.replace(/\D/g, '').length !== 11);
+    });
+
+    function cpfValido(val) {
+        return val.replace(/\D/g, '').length === 11;
+    }
+
     /* ── Submit ── */
     document.getElementById('cadastroForm').addEventListener('submit', function (e) {
         var nomeOk  = setInvalid(nomeEl,  'nomeError',  nomeEl.value.trim().split(/\s+/).filter(Boolean).length < 2);
         var emailOk = setInvalid(emailEl, 'emailError', !validateEmail(emailEl.value));
+        var cpfOk   = setInvalid(cpfEl,   'cpfError',   !cpfValido(cpfEl.value));
         var senhaOk = setInvalid(senhaEl, 'senhaError', senhaEl.value.length < 8);
         var confOk  = setInvalid(confirmarSenhaEl, 'confirmarSenhaError', confirmarSenhaEl.value !== senhaEl.value);
         var termosOk = setInvalid(termosEl, 'termosError', !termosEl.checked);
@@ -159,7 +179,7 @@
             valorOk      = setInvalid(valorHoraEl,      'valorHoraError',      parseValorHora(valorHoraEl.value) <= 0);
         }
 
-        if (!nomeOk || !emailOk || !senhaOk || !confOk || !termosOk || !personagemOk || !valorOk) {
+        if (!nomeOk || !emailOk || !cpfOk || !senhaOk || !confOk || !termosOk || !personagemOk || !valorOk) {
             e.preventDefault();
             var firstInvalid = document.querySelector('.form-control.invalid');
             if (firstInvalid) firstInvalid.focus();

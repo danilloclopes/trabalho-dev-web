@@ -1,137 +1,104 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
-
 <!DOCTYPE html>
-
-<html>
-
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
-
-    <title>Login</title>
-
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .container {
-            width: 35%;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
-
-        button {
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        .erro {
-            color: red;
-            font-weight: bold;
-        }
-
-        .sucesso {
-            color: green;
-            font-weight: bold;
-        }
-
-        .debug {
-            margin-top: 30px;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-        }
-
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar — MagicFest</title>
+    <meta name="description" content="Acesse sua conta MagicFest e gerencie seus agendamentos de personagens.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css">
 </head>
-    <body>
-        <div class="container">
+<body>
 
-            <h2>Login</h2>
+<main class="auth-page">
+    <div class="auth-card">
 
-            <!-- Mensagem de sucesso -->
-            <c:if test="${not empty param.sucesso}">
-                <p class="sucesso">Cadastro realizado com sucesso!</p>
-            </c:if>
-
-            <!-- Mensagem de erro -->
-            <c:if test="${not empty requestScope.erro}">
-                <p class="erro">${requestScope.erro}</p>
-            </c:if>
-
-            <!-- Formulário -->
-            <form action="${pageContext.request.contextPath}/auth" method="post">
-
-                <input
-                    type="hidden"
-                    name="acao"
-                    value="login">
-
-                <label>Email:</label> <br>
-
-                <input
-                    type="email"
-                    name="email"
-                    required> <br>
-
-                <label>Senha:</label> <br>
-
-                <input
-                    type="password"
-                    name="senha"
-                    required> <br>
-
-                <button type="submit"> Entrar </button>
-
-            </form>
-            <br>
-
-            <!-- Navegação -->
-            <a href="${pageContext.request.contextPath}/auth?acao=cadastro">Criar Conta</a>
-            <br><br>
-            <a href="${pageContext.request.contextPath}/">Voltar à Página Inicial</a>
-
-            <div class="debug">
-
-                <h3>Status da Sessão</h3>
-                <p>ID da sessão: ${pageContext.session.id}</p>
-
-                <!-- Usuário logado -->
-                <c:if test="${not empty sessionScope.usuarioLogado}">
-                    <p style="color: green;">
-                        Usuário logado: <strong> ${sessionScope.usuarioLogado.nome} </strong>
-                    </p>
-                </c:if>
-
-                <!-- Usuário não logado -->
-                <c:if test="${empty sessionScope.usuarioLogado}">
-                    <p style="color: red;"> Não há sessão ativa </p>
-                </c:if>
-
-            </div>
+        <div class="auth-logo">
+            <span class="logo-icon">🎭</span>
+            <span class="logo-text">MagicFest</span>
+            <p class="logo-sub">Personagens que encantam festas</p>
         </div>
-    </body>
+
+        <h1 class="auth-title">Bem-vindo de volta!</h1>
+
+        <c:if test="${not empty requestScope.erro}">
+            <div class="alert alert-error" role="alert">
+                <span>⚠️</span> <c:out value="${requestScope.erro}"/>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty param.sucesso}">
+            <div class="alert alert-success" role="alert">
+                <span>✅</span> Conta criada com sucesso! Faça o login para continuar.
+            </div>
+        </c:if>
+
+        <form id="loginForm" action="${pageContext.request.contextPath}/auth" method="post" novalidate>
+            <input type="hidden" name="acao" value="login">
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">📧</span>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="seu@email.com"
+                        autocomplete="email"
+                        value="<c:out value='${param.email}'/>"
+                    >
+                </div>
+                <span class="field-error" id="emailError">Informe um e-mail válido.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🔒</span>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        class="form-control"
+                        placeholder="Sua senha"
+                        autocomplete="current-password"
+                    >
+                    <button type="button" class="toggle-password" aria-label="Mostrar ou ocultar senha" data-target="senha">👁️</button>
+                </div>
+                <span class="field-error" id="senhaError">A senha não pode estar vazia.</span>
+            </div>
+
+            <div class="form-row-between">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="lembrar" id="lembrar">
+                    Lembrar de mim
+                </label>
+                <span class="link-subtle" style="color:#aaa;cursor:default;">Esqueceu a senha?</span>
+            </div>
+
+            <button type="submit" class="btn-auth" id="btnEntrar">Entrar na minha conta</button>
+        </form>
+
+        <div class="divider">ou</div>
+
+        <p class="auth-footer-text">
+            Ainda não tem conta?
+            <a href="${pageContext.request.contextPath}/cadastro.jsp">Criar conta grátis</a>
+        </p>
+
+        <a href="${pageContext.request.contextPath}/" class="back-link">← Voltar para a página inicial</a>
+
+    </div>
+</main>
+
+<script src="${pageContext.request.contextPath}/assets/js/login.js"></script>
+
+</body>
 </html>

@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="now" class="java.util.Date"/>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -303,7 +305,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">&copy; <%= new java.util.Date().getYear() + 1900 %> MagicFest. Todos os direitos reservados.</p>
+        <p class="footer-copyright">&copy; <fmt:formatDate value="${now}" pattern="yyyy"/> MagicFest. Todos os direitos reservados.</p>
         <div class="footer-bottom-links">
           <a href="politica-de-privacidade.jsp">Política de Privacidade</a>
           <a href="termos-de-uso.jsp">Termos de Uso</a>

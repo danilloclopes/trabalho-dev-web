@@ -27,33 +27,36 @@ public class AgendamentoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-
-        String acao = request.getParameter("acao");
+        HttpSession session      = request.getSession(false);
+        Usuario     usuarioLogado = session != null ? (Usuario) session.getAttribute("usuarioLogado") : null;
 
         if (usuarioLogado == null) {
             response.sendRedirect(request.getContextPath() + "/auth?acao=login");
             return;
         }
 
-        if("agendar".equals(acao)) {
+        setCacheControl(response);
 
-            request
-                .getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-                .forward(request, response);
+        String acao = request.getParameter("acao");
+
+        if ("agendar".equals(acao)) {
+            request.getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
+                   .forward(request, response);
 
         } else if ("dashboard-cliente".equals(acao)) {
-
-            List<Agendamento> agendamentos = agendamentoService.listarAgendamentosCliente(usuarioLogado.getId());
-
-            request.setAttribute("agendamentos",agendamentos);
-            request
-                .getRequestDispatcher("/WEB-INF/views/cliente/dashboard.jsp")
-                .forward(request, response);
+            try {
+                List<Agendamento> agendamentos = agendamentoService.listarAgendamentosCliente(usuarioLogado.getId());
+                request.setAttribute("agendamentos", agendamentos);
+                request.getRequestDispatcher("/WEB-INF/views/cliente/dashboard.jsp")
+                       .forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("erro", e.getMessage());
+                request.getRequestDispatcher("/WEB-INF/views/error/erro.jsp")
+                       .forward(request, response);
+            }
 
         } else if ("dashboard-animador".equals(acao)) {
-
+            // TODO: implementar dashboard do animador
         }
     }
 
@@ -63,22 +66,18 @@ public class AgendamentoServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        HttpSession session      = request.getSession(false);
+        Usuario     usuarioLogado = session != null ? (Usuario) session.getAttribute("usuarioLogado") : null;
+
+        if (usuarioLogado == null) {
+            response.sendRedirect(request.getContextPath() + "/auth?acao=login");
+            return;
+        }
+
         try {
+            int           animadorId = Integer.parseInt(request.getParameter("animadorId"));
+            LocalDateTime dataHora   = LocalDateTime.parse(request.getParameter("dataHora"));
 
-            HttpSession session = request.getSession(false);
-            Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-
-            if (usuarioLogado == null) {
-                response.sendRedirect(request.getContextPath() + "/auth?acao=login");
-                return;
-            }
-
-            String animadorIdParam = request.getParameter("animadorId");
-            String dataHoraParam = request.getParameter("dataHora");
-
-            int animadorId = Integer.parseInt(animadorIdParam);
-            LocalDateTime dataHora = LocalDateTime.parse(dataHoraParam);
-            
             Animador animador = new Animador();
             animador.setId(animadorId);
 
@@ -89,21 +88,23 @@ public class AgendamentoServlet extends HttpServlet {
 
             agendamentoService.criarAgendamento(agendamento);
 
-            response.sendRedirect(request.getContextPath()+ "/?sucesso=agendamento");
+            response.sendRedirect(request.getContextPath() + "/agendamento?acao=dashboard-cliente&sucesso=1");
 
         } catch (NumberFormatException e) {
-            request
-                .setAttribute("erro", "ID do animador inválido.");
-            request
-                .getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-                .forward(request, response);
+            request.setAttribute("erro", "ID do animador inválido.");
+            request.getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
+                   .forward(request, response);
 
         } catch (Exception e) {
-            request
-                .setAttribute("erro", e.getMessage());
-            request
-                .getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-                .forward(request, response);
+            request.setAttribute("erro", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
+                   .forward(request, response);
         }
+    }
+
+    private void setCacheControl(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
     }
 }

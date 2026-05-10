@@ -1,192 +1,121 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
-
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Agendamento — MagicFest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <style>
+        body { background: #f4f7fa; }
 
-        <meta charset="UTF-8">
-        <title>Agendar Serviço</title>
+        .form-page-header {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff;
+            padding: 1.5rem 0;
+        }
+        .form-page-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .form-logo { font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; }
 
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f6f8;
-                margin: 0;
-                padding: 0;
-            }
+        .form-main { max-width: 540px; margin: 3rem auto; padding: 0 1.25rem; }
 
-            header {
-                background-color: #2c3e50;
-                color: white;
-                padding: 20px;
-                text-align: center;
-            }
+        .form-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,.08);
+            padding: 2rem 2.5rem;
+        }
+        .form-card h2 { font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin-bottom: 1.75rem; }
 
-            main {
-                margin-top: 40px;
-            }
+        .alert-error {
+            background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;
+            border-radius: 10px; padding: .8rem 1.2rem; margin-bottom: 1.25rem;
+            font-weight: 600; font-size: .9rem;
+        }
 
-            .container {
-                width: 40%;
-                margin: auto;
-                background-color: white;
-                padding: 30px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            }
+        .field { margin-bottom: 1.25rem; }
+        .field label { display: block; font-weight: 700; color: #374151; margin-bottom: .4rem; font-size: .9rem; }
+        .field input {
+            width: 100%; padding: .65rem 1rem; border: 1.5px solid #d1d5db;
+            border-radius: 10px; font-size: .95rem; box-sizing: border-box;
+            font-family: inherit; transition: border-color .2s;
+        }
+        .field input:focus { outline: none; border-color: #7c3aed; }
 
-            h2 {
-                text-align: center;
-                margin-bottom: 30px;
-            }
+        .form-actions { display: flex; gap: .75rem; margin-top: 1.75rem; flex-wrap: wrap; }
+        .form-actions .btn { flex: 1; text-align: center; }
+    </style>
+</head>
+<body>
 
-            label {
-                font-weight: bold;
-            }
+<header class="form-page-header">
+    <div class="container">
+        <a href="${pageContext.request.contextPath}/" class="form-logo">🎭 MagicFest</a>
+        <nav style="display:flex;gap:.75rem;align-items:center;">
+            <a href="${pageContext.request.contextPath}/agendamento?acao=dashboard-cliente"
+               style="color:#fff;text-decoration:none;font-weight:600;font-size:.85rem;">
+                ← Meus Agendamentos
+            </a>
+        </nav>
+    </div>
+</header>
 
-            input {
-                width: 100%;
-                padding: 10px;
-                margin-top: 5px;
-                margin-bottom: 20px;
-                box-sizing: border-box;
-            }
+<main class="form-main">
+    <div class="form-card">
+        <h2>📅 Novo Agendamento</h2>
 
-            .actions {
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-                margin-top: 20px;
-                flex-wrap: wrap;
-            }
-
-            .btn {
-                padding: 12px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                color: white;
-                font-size: 14px;
-            }
-
-            .btn-primary {
-                background-color: #3498db;
-            }
-
-            .btn-primary:hover {
-                background-color: #2980b9;
-            }
-
-            .btn-danger {
-                background-color: #e74c3c;
-            }
-
-            .btn-danger:hover {
-                background-color: #c0392b;
-            }
-
-            .btn-secondary {
-                background-color: #2ecc71;
-            }
-
-            .btn-secondary:hover {
-                background-color: #27ae60;
-            }
-
-            .mensagem-erro {
-                color: red;
-                font-weight: bold;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <header>
-            <h1>Sistema de Agendamento</h1>
-        </header>
-
-        <main>
-            <div class="container">
-                
-                <h2>Novo Agendamento</h2>
-
-                <!-- Mensagem de erro -->
-                <c:if test="${not empty requestScope.erro}">
-                    <p class="mensagem-erro">${requestScope.erro}</p>
-                </c:if>
-
-                <form action="${pageContext.request.contextPath}/agendamento" method="post">
-
-                    <label
-                        for="animadorId">
-                        ID do Animador</label>
-                    <input
-                        type="number"
-                        id="animadorId"
-                        name="animadorId"
-                        value="${param.animadorId}"
-                        min="1"
-                        required>
-
-                    <label
-                        for="dataHora">
-                        Data e Hora
-                    </label>
-                    <input
-                        type="datetime-local"
-                        id="dataHora"
-                        name="dataHora"
-                        value="${param.dataHora}"
-                        required>
-
-                    <div class="actions">
-                        <button
-                            type="submit"
-                            class="btn btn-primary">
-                            Confirmar Agendamento
-                        </button>
-                    </div>
-
-                </form>
-
-                <div class="actions">
-
-                    <a
-                        class="btn btn-secondary"
-                        href="${pageContext.request.contextPath}/">
-                        Voltar à Página Inicial
-                    </a>
-
-                    <form action="${pageContext.request.contextPath}/auth" method="post">
-
-                        <input
-                            type="hidden"
-                            name="acao"
-                            value="logout">
-
-                        <button
-                            type="submit"
-                            class="btn btn-danger">
-
-                            Logout
-
-                        </button>
-
-                    </form>
-                </div>
+        <c:if test="${not empty requestScope.erro}">
+            <div class="alert-error">
+                ⚠️ <c:out value="${requestScope.erro}"/>
             </div>
-        </main>
-    </body>
+        </c:if>
+
+        <form action="${pageContext.request.contextPath}/agendamento" method="post">
+
+            <div class="field">
+                <label for="animadorId">ID do Animador</label>
+                <input
+                    type="number"
+                    id="animadorId"
+                    name="animadorId"
+                    value="${param.animadorId}"
+                    min="1"
+                    placeholder="Ex: 1"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="dataHora">Data e Hora</label>
+                <input
+                    type="datetime-local"
+                    id="dataHora"
+                    name="dataHora"
+                    value="${param.dataHora}"
+                    required
+                >
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>
+                <a href="${pageContext.request.contextPath}/agendamento?acao=dashboard-cliente"
+                   class="btn btn-outline">
+                    Cancelar
+                </a>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+</body>
 </html>

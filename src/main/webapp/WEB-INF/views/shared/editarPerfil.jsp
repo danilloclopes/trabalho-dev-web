@@ -1,207 +1,137 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil — MagicFest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     <style>
+        body { background: #f4f7fa; }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
+        .edit-header {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff;
+            padding: 1.5rem 0;
+        }
+        .edit-header .container {
+            display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+        }
+        .edit-logo { font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; }
+
+        .edit-main { max-width: 540px; margin: 3rem auto; padding: 0 1.25rem; }
+
+        .edit-card {
+            background: #fff; border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,.08);
+            padding: 2rem 2.5rem;
+        }
+        .edit-card h2 { font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin-bottom: 1.75rem; }
+
+        .alert-error {
+            background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;
+            border-radius: 10px; padding: .8rem 1.2rem; margin-bottom: 1.25rem;
+            font-weight: 600; font-size: .9rem;
         }
 
-        header {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 20px;
+        .field { margin-bottom: 1.25rem; }
+        .field label { display: block; font-weight: 700; color: #374151; margin-bottom: .4rem; font-size: .9rem; }
+        .field input {
+            width: 100%; padding: .65rem 1rem; border: 1.5px solid #d1d5db;
+            border-radius: 10px; font-size: .95rem; box-sizing: border-box;
+            font-family: inherit; transition: border-color .2s;
         }
+        .field input:focus { outline: none; border-color: #7c3aed; }
+        .field .hint { font-size: .8rem; color: #9ca3af; margin-top: .35rem; }
 
-        main {
-            margin-top: 40px;
-        }
-
-        .container {
-            width: 40%;
-            margin: auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .mensagem-erro {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-
-        .info-senha {
-            font-size: 13px;
-            color: #666;
-            margin-top: -15px;
-            margin-bottom: 20px;
-        }
-
-        .actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background-color: #3498db;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-secondary {
-            background-color: #95a5a6;
-        }
-
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-        }
+        .form-actions { display: flex; gap: .75rem; margin-top: 1.75rem; flex-wrap: wrap; }
+        .form-actions .btn { flex: 1; text-align: center; }
     </style>
 </head>
+<body>
 
-    <body>
+<header class="edit-header">
+    <div class="container">
+        <a href="${pageContext.request.contextPath}/" class="edit-logo">🎭 MagicFest</a>
+        <a href="${pageContext.request.contextPath}/usuario?acao=perfil"
+           style="color:#fff;text-decoration:none;font-weight:600;font-size:.85rem;">
+            ← Meu Perfil
+        </a>
+    </div>
+</header>
 
-        <header>
-            <h1>Sistema de Agendamento</h1>
-        </header>
+<main class="edit-main">
+    <div class="edit-card">
+        <h2>✏️ Editar Perfil</h2>
 
-        <main>
+        <c:if test="${not empty requestScope.erro}">
+            <div class="alert-error">⚠️ <c:out value="${requestScope.erro}"/></div>
+        </c:if>
 
-            <div class="container">
+        <c:choose>
+            <c:when test="${not empty sessionScope.usuarioLogado}">
+                <form action="${pageContext.request.contextPath}/usuario" method="post">
 
-                <h2>Editar Perfil</h2>
-
-                <c:if test="${not empty requestScope.erro}">
-                    <p class="mensagem-erro">
-                        ${requestScope.erro}
-                    </p>
-                </c:if>
-
-                <!-- Verifica existência do usuário -->
-                <c:if test="${not empty sessionScope.usuarioLogado}">
-
-                    <form action="${pageContext.request.contextPath}/usuario" method="post">
-
-                        <label for="nome">
-                            Nome
-                        </label>
-
+                    <div class="field">
+                        <label for="nome">Nome completo</label>
                         <input
                             type="text"
                             id="nome"
                             name="nome"
-                            value="${sessionScope.usuarioLogado.nome}"
+                            value="<c:out value='${sessionScope.usuarioLogado.nome}'/>"
                             maxlength="100"
-                            required>
+                            required
+                        >
+                    </div>
 
-                        <label for="email">
-                            Email
-                        </label>
-
+                    <div class="field">
+                        <label for="email">E-mail</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
-                            value="${sessionScope.usuarioLogado.email}"
+                            value="<c:out value='${sessionScope.usuarioLogado.email}'/>"
                             maxlength="100"
-                            required>
+                            required
+                        >
+                    </div>
 
-                        <label for="senha">
-                            Nova Senha
-                        </label>
-
+                    <div class="field">
+                        <label for="senha">Nova senha</label>
                         <input
                             type="password"
                             id="senha"
                             name="senha"
-                            minlength="3"
-                            maxlength="100">
+                            minlength="8"
+                            maxlength="100"
+                            placeholder="Deixe em branco para manter a atual"
+                        >
+                        <p class="hint">Mínimo de 8 caracteres. Deixe em branco para não alterar.</p>
+                    </div>
 
-                        <p class="info-senha">
-                            Deixe o campo em branco para manter sua senha atual.
-                        </p>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                        <a href="${pageContext.request.contextPath}/usuario?acao=perfil" class="btn btn-outline">
+                            Cancelar
+                        </a>
+                    </div>
 
-                        <div class="actions">
-                            <button
-                                type="submit"
-                                class="btn btn-primary">
-                                Salvar Alterações
-                            </button>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <p style="color:#991b1b;font-weight:600;">Sessão expirada. Faça login novamente.</p>
+                <a href="${pageContext.request.contextPath}/login.jsp" class="btn btn-primary" style="display:inline-block;margin-top:1rem;">
+                    Fazer login
+                </a>
+            </c:otherwise>
+        </c:choose>
 
-                            <a
-                                class="btn btn-secondary"
-                                href="${pageContext.request.contextPath}/usuario?acao=perfil">
-                                Cancelar
-                            </a>
-                        </div>
+    </div>
+</main>
 
-                    </form>
-
-                </c:if>
-
-                <!-- Caso não exista usuário -->
-                <c:if test="${empty sessionScope.usuarioLogado}">
-                    <p class="mensagem-erro">
-                        Usuário não autenticado.
-                    </p>
-                </c:if>
-
-            </div>
-
-        </main>
-
-    </body>
-
+</body>
 </html>

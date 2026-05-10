@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="now" class="java.util.Date"/>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -43,8 +46,19 @@
 
       <!-- Desktop actions -->
       <div class="nav-actions">
-        <a href="login.jsp" class="nav-btn-outline">Entrar</a>
-        <a href="cadastro.jsp" class="nav-btn-filled">Criar conta</a>
+        <c:choose>
+          <c:when test="${not empty sessionScope.usuarioLogado}">
+            <a href="agendamento?acao=dashboard-cliente" class="nav-btn-outline">Meus Agendamentos</a>
+            <form action="auth" method="post" style="display:inline;">
+              <input type="hidden" name="acao" value="logout">
+              <button type="submit" class="nav-btn-filled" style="cursor:pointer;border:none;">Sair</button>
+            </form>
+          </c:when>
+          <c:otherwise>
+            <a href="login.jsp" class="nav-btn-outline">Entrar</a>
+            <a href="cadastro.jsp" class="nav-btn-filled">Criar conta</a>
+          </c:otherwise>
+        </c:choose>
       </div>
 
       <!-- Mobile toggle -->
@@ -64,8 +78,19 @@
     <a href="#diferenciais">Diferenciais</a>
     <a href="#depoimentos">Depoimentos</a>
     <div class="mobile-nav-actions">
-      <a href="login.jsp" class="btn btn-outline">Entrar</a>
-      <a href="cadastro.jsp" class="btn btn-primary">Criar conta</a>
+      <c:choose>
+        <c:when test="${not empty sessionScope.usuarioLogado}">
+          <a href="agendamento?acao=dashboard-cliente" class="btn btn-outline">Agendamentos</a>
+          <form action="auth" method="post" style="display:inline;">
+            <input type="hidden" name="acao" value="logout">
+            <button type="submit" class="btn btn-primary" style="cursor:pointer;border:none;">Sair</button>
+          </form>
+        </c:when>
+        <c:otherwise>
+          <a href="login.jsp" class="btn btn-outline">Entrar</a>
+          <a href="cadastro.jsp" class="btn btn-primary">Criar conta</a>
+        </c:otherwise>
+      </c:choose>
     </div>
   </nav>
   <div class="overlay" id="overlay"></div>
@@ -573,7 +598,7 @@
 
       <div class="footer-bottom">
         <p class="footer-copyright">
-          &copy; <%= new java.util.Date().getYear() + 1900 %> MagicFest. Todos os direitos reservados.
+          &copy; <fmt:formatDate value="${now}" pattern="yyyy"/> MagicFest. Todos os direitos reservados.
         </p>
         <div class="footer-bottom-links">
           <a href="politica-de-privacidade.jsp">Política de Privacidade</a>

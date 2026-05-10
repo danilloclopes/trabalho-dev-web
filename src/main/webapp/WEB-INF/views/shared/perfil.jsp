@@ -1,190 +1,133 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
-    <title>Meu Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil — MagicFest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     <style>
+        body { background: #f4f7fa; }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
+        .profile-header {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff;
+            padding: 1.5rem 0;
         }
-
-        header {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        main {
-            margin-top: 40px;
-        }
-
-        .container {
-            width: 40%;
-            margin: auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .info {
-            margin-bottom: 20px;
-        }
-
-        .info strong {
-            display: inline-block;
-            width: 80px;
-        }
-
-        .mensagem-erro {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .actions {
+        .profile-header .container {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .profile-logo { font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; }
+
+        .profile-main { max-width: 540px; margin: 3rem auto; padding: 0 1.25rem; }
+
+        .profile-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,.08);
+            padding: 2rem 2.5rem;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-            font-size: 14px;
+        .profile-avatar {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; margin: 0 auto 1.5rem;
         }
 
-        .btn-primary {
-            background-color: #3498db;
+        .profile-card h2 { font-size: 1.4rem; font-weight: 800; color: #1e1b4b; text-align: center; margin-bottom: 1.75rem; }
+
+        .alert-success {
+            background: #dcfce7; color: #166534; border: 1px solid #86efac;
+            border-radius: 10px; padding: .8rem 1.2rem; margin-bottom: 1.25rem;
+            font-weight: 600; font-size: .9rem;
+        }
+        .alert-error {
+            background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;
+            border-radius: 10px; padding: .8rem 1.2rem; margin-bottom: 1.25rem;
+            font-weight: 600; font-size: .9rem;
         }
 
-        .btn-primary:hover {
-            background-color: #2980b9;
+        .info-row {
+            display: flex; align-items: flex-start; gap: .75rem;
+            padding: .9rem 0; border-bottom: 1px solid #f3f4f6;
         }
+        .info-row:last-of-type { border-bottom: none; }
+        .info-label { font-weight: 700; color: #6b7280; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; min-width: 70px; padding-top: .1rem; }
+        .info-value { color: #1e1b4b; font-weight: 600; word-break: break-all; }
 
-        .btn-secondary {
-            background-color: #2ecc71;
+        .profile-actions { display: flex; gap: .75rem; margin-top: 2rem; flex-wrap: wrap; }
+        .profile-actions .btn,
+        .profile-actions button { flex: 1; text-align: center; }
+        .profile-actions form { flex: 1; }
+        .btn-logout {
+            width: 100%; padding: .65rem 1rem; border-radius: 10px; font-size: .9rem;
+            font-weight: 700; cursor: pointer; border: 1.5px solid #fca5a5;
+            background: #fee2e2; color: #991b1b;
         }
-
-        .btn-secondary:hover {
-            background-color: #27ae60;
-        }
-
-        .btn-danger {
-            background-color: #e74c3c;
-        }
-
-        .btn-danger:hover {
-            background-color: #c0392b;
-        }
-
+        .btn-logout:hover { background: #fecaca; }
     </style>
-
 </head>
+<body>
 
-    <body>
+<header class="profile-header">
+    <div class="container">
+        <a href="${pageContext.request.contextPath}/" class="profile-logo">🎭 MagicFest</a>
+        <a href="${pageContext.request.contextPath}/agendamento?acao=dashboard-cliente"
+           style="color:#fff;text-decoration:none;font-weight:600;font-size:.85rem;">
+            ← Meus Agendamentos
+        </a>
+    </div>
+</header>
 
-        <header>
-            <h1>Sistema de Agendamento</h1>
-        </header>
+<main class="profile-main">
+    <div class="profile-card">
 
-        <main>
-            <div class="container">
+        <div class="profile-avatar">👤</div>
+        <h2>Meu Perfil</h2>
 
-                <h2>Meu Perfil</h2>
+        <c:if test="${not empty param.sucesso}">
+            <div class="alert-success">✅ Perfil atualizado com sucesso!</div>
+        </c:if>
 
-                <c:if test="${not empty requestScope.erro}">
-                    <p class="mensagem-erro">
-                        ${requestScope.erro}
-                    </p>
-                </c:if>
+        <c:if test="${not empty requestScope.erro}">
+            <div class="alert-error">⚠️ <c:out value="${requestScope.erro}"/></div>
+        </c:if>
 
-                <c:if test="${not empty requestScope.usuario}">
-
-                    <div class="info">
-                        <p>
-                            <strong>Nome:</strong>
-                            ${requestScope.usuario.nome}
-                        </p>
-
-                        <p>
-                            <strong>Email:</strong>
-                            ${requestScope.usuario.email}
-                        </p>
-
-                        <p>
-                            <strong>CPF:</strong>
-                            ${requestScope.usuario.cpf}
-                        </p>
-                    </div>
-
-                    <div class="actions">
-
-                        <a
-                            class="btn btn-primary"
-                            href="${pageContext.request.contextPath}/usuario?acao=editar-perfil">
-                            Editar Perfil
-                        </a>
-
-                        <a
-                            class="btn btn-secondary"
-                            href="${pageContext.request.contextPath}/meus-agendamentos">
-                            Meus Agendamentos
-                        </a>
-
-                        <form action="${pageContext.request.contextPath}/auth" method="post">
-                            <input
-                                type="hidden"
-                                name="acao"
-                                value="logout">
-
-                            <button
-                                type="submit"
-                                class="btn btn-danger">
-                                Logout
-                            </button>
-                        </form>
-
-                    </div>
-                </c:if>
-
-                <div class="actions">
-                    <a
-                        class="btn btn-secondary"
-                        href="${pageContext.request.contextPath}/">
-                        Voltar à Página Inicial
-                    </a>
-                </div>
-
+        <c:if test="${not empty requestScope.usuario}">
+            <div class="info-row">
+                <span class="info-label">Nome</span>
+                <span class="info-value"><c:out value="${requestScope.usuario.nome}"/></span>
             </div>
-        </main>
-    </body>
+            <div class="info-row">
+                <span class="info-label">E-mail</span>
+                <span class="info-value"><c:out value="${requestScope.usuario.email}"/></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">CPF</span>
+                <span class="info-value"><c:out value="${requestScope.usuario.cpf}"/></span>
+            </div>
+
+            <div class="profile-actions">
+                <a href="${pageContext.request.contextPath}/usuario?acao=editar-perfil" class="btn btn-primary">
+                    Editar Perfil
+                </a>
+                <form action="${pageContext.request.contextPath}/auth" method="post">
+                    <input type="hidden" name="acao" value="logout">
+                    <button type="submit" class="btn-logout">Sair da conta</button>
+                </form>
+            </div>
+        </c:if>
+
+    </div>
+</main>
+
+</body>
 </html>
