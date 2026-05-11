@@ -42,17 +42,17 @@ public class UsuarioServlet extends HttpServlet {
 
             if ("perfil".equals(acao)) {
                 request.getRequestDispatcher("/WEB-INF/views/shared/perfil.jsp")
-                       .forward(request, response);
+                    .forward(request, response);
 
             } else if ("editar-perfil".equals(acao)) {
                 request.getRequestDispatcher("/WEB-INF/views/shared/editarPerfil.jsp")
-                       .forward(request, response);
+                    .forward(request, response);
             }
 
         } catch (Exception e) {
             request.setAttribute("erro", "Não foi possível carregar os dados do usuário.");
             request.getRequestDispatcher("/WEB-INF/views/error/erro.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         }
     }
 
@@ -83,7 +83,7 @@ public class UsuarioServlet extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("erro", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/views/shared/editarPerfil.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         }
     }
 

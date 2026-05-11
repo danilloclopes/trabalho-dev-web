@@ -41,22 +41,20 @@ public class AgendamentoServlet extends HttpServlet {
 
         if ("agendar".equals(acao)) {
             request.getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-                   .forward(request, response);
+                .forward(request, response);
 
         } else if ("dashboard-cliente".equals(acao)) {
             try {
                 List<Agendamento> agendamentos = agendamentoService.listarAgendamentosCliente(usuarioLogado.getId());
                 request.setAttribute("agendamentos", agendamentos);
                 request.getRequestDispatcher("/WEB-INF/views/cliente/dashboard.jsp")
-                       .forward(request, response);
+                    .forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("erro", e.getMessage());
                 request.getRequestDispatcher("/WEB-INF/views/error/erro.jsp")
-                       .forward(request, response);
+                    .forward(request, response);
             }
 
-        } else if ("dashboard-animador".equals(acao)) {
-            // TODO: implementar dashboard do animador
         }
     }
 
@@ -93,12 +91,12 @@ public class AgendamentoServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             request.setAttribute("erro", "ID do animador inválido.");
             request.getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-                   .forward(request, response);
+                .forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("erro", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/views/agendamento/agendar.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         }
     }
 

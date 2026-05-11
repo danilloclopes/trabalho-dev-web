@@ -26,14 +26,13 @@ public class AuthServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
 
-        // Redireciona para as páginas públicas estilizadas
         if ("login".equals(acao)) {
             request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp")
-                   .forward(request, response);
+                .forward(request, response);
 
         } else if ("cadastro".equals(acao)) {
             request.getRequestDispatcher("/WEB-INF/views/auth/cadastro.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         }
     }
 

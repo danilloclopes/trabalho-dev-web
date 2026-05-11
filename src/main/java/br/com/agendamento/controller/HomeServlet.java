@@ -19,13 +19,13 @@ public class HomeServlet extends HttpServlet {
 
         if ("/politica-de-privacidade".equals(path)) {
             request.getRequestDispatcher("/WEB-INF/views/home/politica-de-privacidade.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         } else if ("/termos-de-uso".equals(path)) {
             request.getRequestDispatcher("/WEB-INF/views/home/termos-de-uso.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         } else {
             request.getRequestDispatcher("/WEB-INF/views/home/index.jsp")
-                   .forward(request, response);
+                .forward(request, response);
         }
     }
 }
