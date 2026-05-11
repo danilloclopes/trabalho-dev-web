@@ -8,15 +8,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
+@WebServlet(urlPatterns = {"/", "/politica-de-privacidade", "/termos-de-uso"})
 public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request
-            .getRequestDispatcher("/WEB-INF/views/home/index.jsp")
-            .forward(request, response);
+        String path = request.getServletPath();
+
+        if ("/politica-de-privacidade".equals(path)) {
+            request.getRequestDispatcher("/WEB-INF/views/home/politica-de-privacidade.jsp")
+                   .forward(request, response);
+        } else if ("/termos-de-uso".equals(path)) {
+            request.getRequestDispatcher("/WEB-INF/views/home/termos-de-uso.jsp")
+                   .forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/views/home/index.jsp")
+                   .forward(request, response);
+        }
     }
 }

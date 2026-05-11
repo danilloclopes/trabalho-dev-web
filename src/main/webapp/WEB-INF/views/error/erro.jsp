@@ -8,7 +8,19 @@
     <title>Erro — MagicFest</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --primary:#7C3AED; --primary-dark:#5B21B6; --accent:#EC4899; --text-dark:#1E1B4B; --text-medium:#4B5563; --white:#FFFFFF; --border:#E9D5FF; --shadow:rgba(124,58,237,0.12); --shadow-hover:rgba(124,58,237,0.25); --radius-full:9999px; --transition:0.3s ease; --font-heading:'Nunito',sans-serif; --font-body:'Poppins',sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-full); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; cursor: pointer; border: none; transition: var(--transition); }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); box-shadow: 0 4px 20px var(--shadow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--shadow-hover); }
+.btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.btn-outline:hover { background: var(--primary); color: var(--white); transform: translateY(-2px); }
+    </style>
     <style>
         body { background: #f4f7fa; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
         .error-card {

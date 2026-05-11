@@ -12,27 +12,124 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="stylesheet" href="assets/css/legal.css" />
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --primary:#7C3AED; --primary-light:#A78BFA; --primary-dark:#5B21B6; --secondary:#F59E0B; --secondary-light:#FCD34D; --accent:#EC4899; --accent-light:#F9A8D4; --bg-section:#F5F3FF; --text-dark:#1E1B4B; --text-medium:#4B5563; --text-light:#9CA3AF; --white:#FFFFFF; --border:#E9D5FF; --shadow:rgba(124,58,237,0.12); --shadow-hover:rgba(124,58,237,0.25); --radius-sm:8px; --radius-md:16px; --radius-lg:24px; --radius-full:9999px; --transition:0.3s ease; --font-heading:'Nunito',sans-serif; --font-body:'Poppins',sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; } a { text-decoration: none; color: inherit; } ul { list-style: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-full); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; cursor: pointer; border: none; transition: var(--transition); white-space: nowrap; }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); box-shadow: 0 4px 20px var(--shadow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--shadow-hover); }
+.btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+.navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 18px 0; background: transparent; transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease; }
+.navbar.scrolled { background: rgba(255,255,255,0.97); box-shadow: 0 2px 20px rgba(0,0,0,0.08); padding: 12px 0; backdrop-filter: blur(12px); }
+.navbar-inner { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; color: var(--white); transition: color var(--transition); }
+.navbar.scrolled .nav-logo { color: var(--primary-dark); }
+.nav-logo .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--secondary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-weight: 600; font-size: 0.9rem; color: rgba(255,255,255,0.9); transition: color var(--transition); position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width var(--transition); border-radius: var(--radius-full); }
+.nav-links a:hover::after { width: 100%; }
+.navbar.scrolled .nav-links a { color: var(--text-medium); }
+.navbar.scrolled .nav-links a:hover { color: var(--primary); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-btn-outline { padding: 9px 22px; border-radius: var(--radius-full); border: 2px solid rgba(255,255,255,0.8); color: var(--white); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: var(--transition); background: transparent; }
+.nav-btn-outline:hover { background: rgba(255,255,255,0.15); }
+.navbar.scrolled .nav-btn-outline { border-color: var(--primary); color: var(--primary); }
+.navbar.scrolled .nav-btn-outline:hover { background: var(--primary); color: var(--white); }
+.nav-btn-filled { padding: 9px 22px; border-radius: var(--radius-full); background: var(--secondary); color: var(--white); font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; cursor: pointer; border: none; transition: var(--transition); box-shadow: 0 4px 14px rgba(245,158,11,0.4); }
+.nav-btn-filled:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.5); }
+.menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.menu-toggle span { display: block; width: 26px; height: 3px; background: var(--white); border-radius: 3px; transition: var(--transition); }
+.navbar.scrolled .menu-toggle span { background: var(--text-dark); }
+.menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.mobile-nav { display: none; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--white); box-shadow: -8px 0 40px rgba(0,0,0,0.15); z-index: 999; padding: 80px 32px 32px; flex-direction: column; gap: 8px; transition: right 0.35s ease; }
+.mobile-nav.open { right: 0; }
+.mobile-nav a { display: block; padding: 12px 0; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--text-dark); border-bottom: 1px solid var(--border); transition: color var(--transition); }
+.mobile-nav a:hover { color: var(--primary); }
+.mobile-nav .mobile-nav-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 998; backdrop-filter: blur(4px); }
+.overlay.open { display: block; }
+.footer { background: var(--text-dark); color: rgba(255,255,255,0.7); padding: 64px 0 32px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+.footer-brand .nav-logo { margin-bottom: 16px; color: var(--white); }
+.footer-desc { font-size: 0.875rem; line-height: 1.7; margin-bottom: 24px; max-width: 280px; }
+.footer-social { display: flex; gap: 12px; }
+.social-link { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: var(--transition); cursor: pointer; }
+.social-link:hover { background: var(--primary); transform: translateY(-2px); }
+.footer-col-title { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--white); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 0.875rem; color: rgba(255,255,255,0.6); transition: color var(--transition); }
+.footer-links a:hover { color: var(--primary-light); }
+.footer-contact-item { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; margin-bottom: 10px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-copyright { font-size: 0.825rem; }
+.footer-bottom-links { display: flex; gap: 20px; }
+.footer-bottom-links a { font-size: 0.825rem; color: rgba(255,255,255,0.5); transition: color var(--transition); }
+.footer-bottom-links a:hover { color: var(--white); }
+@media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) { .nav-links, .nav-actions { display: none; } .menu-toggle { display: flex; } .mobile-nav { display: flex; } .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+
+/* legal.css */
+.legal-page { padding: 120px 0 80px; min-height: 100vh; background: var(--bg-section); }
+.legal-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 32px var(--shadow); padding: 56px 64px; max-width: 860px; margin: 0 auto; }
+.legal-header { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--border); }
+.legal-badge { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); color: var(--primary-dark); font-family: var(--font-heading); font-size: 13px; font-weight: 700; letter-spacing: .5px; padding: 6px 16px; border-radius: var(--radius-full); margin-bottom: 20px; }
+.legal-title { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: var(--text-dark); margin-bottom: 12px; }
+.legal-meta { font-size: 14px; color: var(--text-light); }
+.lgpd-badge { display: inline-flex; align-items: center; gap: 6px; background: #D1FAE5; color: #065F46; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: var(--radius-full); margin-top: 12px; }
+.legal-toc { background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px 32px; margin-bottom: 40px; }
+.legal-toc h3 { font-family: var(--font-heading); font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; }
+.legal-toc ol { list-style: decimal; padding-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+.legal-toc a { color: var(--primary); font-size: 14px; font-weight: 600; text-decoration: none; transition: color var(--transition); }
+.legal-toc a:hover { color: var(--primary-dark); }
+.legal-highlight { border-left: 4px solid; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 16px 20px; margin: 16px 0; font-size: 14px; font-weight: 600; }
+.legal-highlight--warning { background: #FFF7ED; border-color: var(--secondary); color: #92400E; }
+.legal-highlight--info { background: #EFF6FF; border-color: var(--primary); color: #1E40AF; }
+.legal-section { margin-bottom: 40px; }
+.legal-section h2 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border-radius: 50%; font-size: 14px; font-weight: 900; flex-shrink: 0; }
+.legal-section p { color: var(--text-medium); font-size: 15px; line-height: 1.8; margin-bottom: 12px; }
+.legal-section ul, .legal-section ol { color: var(--text-medium); font-size: 15px; line-height: 1.8; padding-left: 24px; margin-bottom: 12px; }
+.legal-section ul { list-style: disc; } .legal-section ol { list-style: decimal; } .legal-section li { margin-bottom: 6px; }
+.rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.rights-item { background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 20px; }
+.rights-item strong { display: block; color: var(--primary-dark); font-family: var(--font-heading); font-size: 14px; margin-bottom: 4px; }
+.rights-item span { color: var(--text-medium); font-size: 13px; line-height: 1.6; }
+.legal-contact-box { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; border-radius: var(--radius-md); padding: 32px 40px; margin-top: 48px; text-align: center; }
+.legal-contact-box h3 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+.legal-contact-box p { opacity: .9; font-size: 15px; margin-bottom: 4px; }
+.legal-contact-box a { color: var(--secondary-light); font-weight: 700; }
+.legal-back { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 700; font-size: 15px; text-decoration: none; margin-bottom: 32px; transition: gap var(--transition); }
+.legal-back:hover { gap: 12px; }
+@media (max-width: 768px) { .legal-card { padding: 32px 24px; } .legal-title { font-size: 1.7rem; } .legal-toc ol { grid-template-columns: 1fr; } .rights-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="container navbar-inner">
-      <a href="index.jsp" class="nav-logo">
+      <a href="${pageContext.request.contextPath}/" class="nav-logo">
         <div class="logo-icon">🎭</div>
         MagicFest
       </a>
       <ul class="nav-links">
-        <li><a href="index.jsp#como-funciona">Como Funciona</a></li>
-        <li><a href="index.jsp#personagens">Personagens</a></li>
-        <li><a href="index.jsp#diferenciais">Diferenciais</a></li>
-        <li><a href="index.jsp#depoimentos">Depoimentos</a></li>
+        <li><a href="${pageContext.request.contextPath}/#como-funciona">Como Funciona</a></li>
+        <li><a href="${pageContext.request.contextPath}/#personagens">Personagens</a></li>
+        <li><a href="${pageContext.request.contextPath}/#diferenciais">Diferenciais</a></li>
+        <li><a href="${pageContext.request.contextPath}/#depoimentos">Depoimentos</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="login.jsp" class="nav-btn-outline">Entrar</a>
-        <a href="cadastro.jsp" class="nav-btn-filled">Criar conta</a>
+        <a href="${pageContext.request.contextPath}/auth?acao=login" class="nav-btn-outline">Entrar</a>
+        <a href="${pageContext.request.contextPath}/auth?acao=cadastro" class="nav-btn-filled">Criar conta</a>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
         <span></span><span></span><span></span>
@@ -40,13 +137,13 @@
     </div>
   </nav>
   <nav class="mobile-nav" id="mobileNav">
-    <a href="index.jsp#como-funciona">Como Funciona</a>
-    <a href="index.jsp#personagens">Personagens</a>
-    <a href="index.jsp#diferenciais">Diferenciais</a>
-    <a href="index.jsp#depoimentos">Depoimentos</a>
+    <a href="${pageContext.request.contextPath}/#como-funciona">Como Funciona</a>
+    <a href="${pageContext.request.contextPath}/#personagens">Personagens</a>
+    <a href="${pageContext.request.contextPath}/#diferenciais">Diferenciais</a>
+    <a href="${pageContext.request.contextPath}/#depoimentos">Depoimentos</a>
     <div class="mobile-nav-actions">
-      <a href="login.jsp" class="btn btn-outline">Entrar</a>
-      <a href="cadastro.jsp" class="btn btn-primary">Criar conta</a>
+      <a href="${pageContext.request.contextPath}/auth?acao=login" class="btn btn-outline">Entrar</a>
+      <a href="${pageContext.request.contextPath}/auth?acao=cadastro" class="btn btn-primary">Criar conta</a>
     </div>
   </nav>
   <div class="overlay" id="overlay"></div>
@@ -55,7 +152,7 @@
   <main class="legal-page">
     <div class="container">
 
-      <a href="index.jsp" class="legal-back">← Voltar para o início</a>
+      <a href="${pageContext.request.contextPath}/" class="legal-back">← Voltar para o início</a>
 
       <div class="legal-card">
 
@@ -90,7 +187,7 @@
         <div class="legal-section" id="s1">
           <h2><span class="section-num">1</span> Aceitação dos Termos</h2>
           <p>Estes Termos de Uso ("Termos") regulam o acesso e o uso da plataforma MagicFest ("Plataforma"), operada por MagicFest Entretenimento Ltda., com sede em [Cidade, Estado], CNPJ nº [00.000.000/0001-00].</p>
-          <p>Ao acessar ou usar a Plataforma de qualquer forma — seja criando uma conta, realizando uma reserva ou simplesmente navegando — você ("Usuário") declara ter lido, compreendido e concordado integralmente com estes Termos e com nossa <a href="politica-de-privacidade.jsp" style="color:var(--primary);font-weight:700;">Política de Privacidade</a>.</p>
+          <p>Ao acessar ou usar a Plataforma de qualquer forma — seja criando uma conta, realizando uma reserva ou simplesmente navegando — você ("Usuário") declara ter lido, compreendido e concordado integralmente com estes Termos e com nossa <a href="${pageContext.request.contextPath}/politica-de-privacidade" style="color:var(--primary);font-weight:700;">Política de Privacidade</a>.</p>
           <p>Se você não concordar com qualquer disposição aqui contida, não utilize a Plataforma.</p>
         </div>
 
@@ -214,7 +311,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.jsp" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
+          <a href="${pageContext.request.contextPath}/" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
             <div class="logo-icon">🎭</div>
             MagicFest
           </a>
@@ -229,16 +326,16 @@
         <div>
           <div class="footer-col-title">Navegação</div>
           <ul class="footer-links">
-            <li><a href="index.jsp">Início</a></li>
-            <li><a href="index.jsp#como-funciona">Como Funciona</a></li>
-            <li><a href="index.jsp#depoimentos">Depoimentos</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Início</a></li>
+            <li><a href="${pageContext.request.contextPath}/#como-funciona">Como Funciona</a></li>
+            <li><a href="${pageContext.request.contextPath}/#depoimentos">Depoimentos</a></li>
           </ul>
         </div>
         <div>
           <div class="footer-col-title">Conta</div>
           <ul class="footer-links">
-            <li><a href="cadastro.jsp">Criar conta</a></li>
-            <li><a href="login.jsp">Entrar</a></li>
+            <li><a href="${pageContext.request.contextPath}/auth?acao=cadastro">Criar conta</a></li>
+            <li><a href="${pageContext.request.contextPath}/auth?acao=login">Entrar</a></li>
           </ul>
         </div>
         <div>
@@ -251,13 +348,13 @@
       <div class="footer-bottom">
         <p class="footer-copyright">&copy; <fmt:formatDate value="${now}" pattern="yyyy"/> MagicFest. Todos os direitos reservados.</p>
         <div class="footer-bottom-links">
-          <a href="politica-de-privacidade.jsp">Política de Privacidade</a>
-          <a href="termos-de-uso.jsp">Termos de Uso</a>
+          <a href="${pageContext.request.contextPath}/politica-de-privacidade">Política de Privacidade</a>
+          <a href="${pageContext.request.contextPath}/termos-de-uso">Termos de Uso</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>

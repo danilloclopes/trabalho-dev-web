@@ -9,7 +9,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --primary:#7C3AED; --primary-light:#A78BFA; --primary-dark:#5B21B6; --secondary:#F59E0B; --secondary-light:#FCD34D; --accent:#EC4899; --accent-light:#F9A8D4; --bg-section:#F5F3FF; --text-dark:#1E1B4B; --text-medium:#4B5563; --text-light:#9CA3AF; --white:#FFFFFF; --border:#E9D5FF; --shadow:rgba(124,58,237,0.12); --shadow-hover:rgba(124,58,237,0.25); --radius-sm:8px; --radius-md:16px; --radius-lg:24px; --radius-full:9999px; --transition:0.3s ease; --font-heading:'Nunito',sans-serif; --font-body:'Poppins',sans-serif; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); line-height: 1.6; }
+img { max-width: 100%; display: block; } a { text-decoration: none; color: inherit; } ul { list-style: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-full); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; cursor: pointer; border: none; transition: var(--transition); white-space: nowrap; }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); box-shadow: 0 4px 20px var(--shadow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--shadow-hover); }
+.btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.btn-outline:hover { background: var(--primary); color: var(--white); transform: translateY(-2px); }
+    </style>
     <style>
         body { background: #f4f7fa; }
 

@@ -2,16 +2,15 @@
     'use strict';
 
     /* ── Seletor de tipo de conta ── */
-    var roleCards        = document.querySelectorAll('.role-card');
+    var roleCards         = document.querySelectorAll('.role-card');
     var personagemSection = document.getElementById('personagemSection');
 
-    roleCards.forEach(function (card) {
-        card.addEventListener('click', function () {
+    document.querySelectorAll('input[name="tipoConta"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
             roleCards.forEach(function (c) { c.classList.remove('role-card--selected'); });
-            card.classList.add('role-card--selected');
+            this.closest('.role-card').classList.add('role-card--selected');
 
-            var isPersonagem = card.querySelector('input[type="radio"]').value === 'personagem';
-            if (isPersonagem) {
+            if (this.value === 'personagem') {
                 personagemSection.classList.add('personagem-section--visible');
             } else {
                 personagemSection.classList.remove('personagem-section--visible');

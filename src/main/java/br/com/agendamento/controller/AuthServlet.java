@@ -28,13 +28,12 @@ public class AuthServlet extends HttpServlet {
 
         // Redireciona para as páginas públicas estilizadas
         if ("login".equals(acao)) {
-            String sucesso = request.getParameter("sucesso");
-            String redirect = request.getContextPath() + "/login.jsp";
-            if (sucesso != null) redirect += "?sucesso=1";
-            response.sendRedirect(redirect);
+            request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp")
+                   .forward(request, response);
 
         } else if ("cadastro".equals(acao)) {
-            response.sendRedirect(request.getContextPath() + "/cadastro.jsp");
+            request.getRequestDispatcher("/WEB-INF/views/auth/cadastro.jsp")
+                   .forward(request, response);
         }
     }
 
@@ -58,7 +57,7 @@ public class AuthServlet extends HttpServlet {
 
             } catch (Exception e) {
                 request.setAttribute("erro", e.getMessage());
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
             }
 
         } else if ("cadastro".equals(acao)) {
@@ -75,11 +74,11 @@ public class AuthServlet extends HttpServlet {
                 usuario.setCpf(cpf != null ? cpf.replaceAll("\\D", "") : "");
 
                 authService.cadastrar(usuario);
-                response.sendRedirect(request.getContextPath() + "/login.jsp?sucesso=1");
+                response.sendRedirect(request.getContextPath() + "/auth?acao=login&sucesso=1");
 
             } catch (Exception e) {
                 request.setAttribute("erro", e.getMessage());
-                request.getRequestDispatcher("/cadastro.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/auth/cadastro.jsp").forward(request, response);
             }
 
         } else if ("logout".equals(acao)) {

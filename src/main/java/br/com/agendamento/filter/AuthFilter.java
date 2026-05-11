@@ -28,19 +28,17 @@ public class AuthFilter implements Filter {
         HttpSession session  = req.getSession(false);
         boolean     logado   = session != null && session.getAttribute("usuarioLogado") != null;
 
-        boolean paginaAuth = uri.endsWith("/login.jsp")
-                          || uri.endsWith("/cadastro.jsp")
-                          || uri.contains("/auth");
+        boolean paginaAuth = uri.contains("/auth");
 
         boolean recursoPublico = uri.equals(context + "/")
-                              || uri.endsWith("/index.jsp")
-                              || uri.endsWith("/politica-de-privacidade.jsp")
-                              || uri.endsWith("/termos-de-uso.jsp")
+                              || uri.endsWith("/politica-de-privacidade")
+                              || uri.endsWith("/termos-de-uso")
                               || uri.contains("/assets/")
                               || paginaAuth;
 
         // Usuário autenticado não precisa voltar para login/cadastro
-        if (logado && (uri.endsWith("/login.jsp") || uri.endsWith("/cadastro.jsp"))) {
+        String acao = req.getParameter("acao");
+        if (logado && uri.contains("/auth") && ("login".equals(acao) || "cadastro".equals(acao))) {
             resp.sendRedirect(context + "/");
             return;
         }

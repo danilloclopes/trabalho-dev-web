@@ -70,9 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
   fadeEls.forEach(function (el) { observer.observe(el); });
+
+  /* Fallback: garante visibilidade caso o observer não dispare */
+  setTimeout(function () {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }, 1200);
 
   /* ---- Character filter tabs ---- */
   const filterBtns = document.querySelectorAll('.filter-btn');

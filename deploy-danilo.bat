@@ -14,18 +14,18 @@ if %errorlevel% neq 0 (
 )
 
 @REM desliga o tomcat caso esteja rodando
-call "C:\apache-tomcat-9.0.117\apache-tomcat-9.0.117\bin\shutdown.bat" >nul 2>&1
+call "C:\tomcat\apache-tomcat-9.0.117\apache-tomcat-9.0.117\bin\shutdown.bat" >nul 2>&1
 timeout /t 5 >nul
 
 @REM apaga o .war anterior para evitar conflitos de cache
-del /F /Q "C:\apache-tomcat-9.0.117\apache-tomcat-9.0.117\webapps\agendamento-personagens.war" >nul 2>&1
-rmdir /S /Q "C:\apache-tomcat-9.0.117\apache-tomcat-9.0.117\webapps\agendamento-personagens" >nul 2>&1
+del /F /Q "C:\tomcat\apache-tomcat-9.0.117\apache-tomcat-9.0.117\webapps\agendamento-personagens.war" >nul 2>&1
+rmdir /S /Q "C:\tomcat\apache-tomcat-9.0.117\apache-tomcat-9.0.117\webapps\agendamento-personagens" >nul 2>&1
 
 @REM copia o novo .war para a pasta webapps do tomcat
-copy /Y "C:\Users\danil\Documents\repositories\trabalho-dev-web\target\agendamento-personagens.war" "C:\apache-tomcat-9.0.117\apache-tomcat-9.0.117\webapps"
+copy /Y "C:\Users\danil\Documents\repositories\trabalho-dev-web\target\agendamento-personagens.war" "C:\tomcat\apache-tomcat-9.0.117\apache-tomcat-9.0.117\webapps"
 
 @REM inicia o tomcat
-call "C:\apache-tomcat-9.0.117\apache-tomcat-9.0.117\bin\startup.bat"
+call "C:\tomcat\apache-tomcat-9.0.117\apache-tomcat-9.0.117\bin\startup.bat"
 
 @REM aguarda o tomcat subir e expandir o WAR antes de abrir o browser
 timeout /t 10 >nul
