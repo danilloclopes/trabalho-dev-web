@@ -31,10 +31,10 @@ public class AuthFilter implements Filter {
         boolean paginaAuth = uri.contains("/auth");
 
         boolean recursoPublico = uri.equals(context + "/")
-                              || uri.endsWith("/politica-de-privacidade")
-                              || uri.endsWith("/termos-de-uso")
-                              || uri.contains("/assets/")
-                              || paginaAuth;
+                            || uri.endsWith("/politica-de-privacidade")
+                            || uri.endsWith("/termos-de-uso")
+                            || uri.contains("/assets/")
+                            || paginaAuth;
 
         // Usuário autenticado não precisa voltar para login/cadastro
         String acao = req.getParameter("acao");

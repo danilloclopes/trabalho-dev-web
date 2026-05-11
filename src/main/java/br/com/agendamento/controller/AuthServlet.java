@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+// NOTA: escolhemos manter o cadastro, login e logout juntos para centralizar o processo de autenticação
+
+
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
 
